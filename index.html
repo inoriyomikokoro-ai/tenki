@@ -65,8 +65,8 @@
         .sky-rainbow { background: linear-gradient(180deg, #fbcfe8, #fef08a, #ccfbf1); }
         
         /* ミックスお天気用スペシャル背景 */
-        .sky-sun-rain { background: linear-gradient(180deg, #64748b, #bae6fd, #fde047); } /* グレーから青空、そして光へ */
-        .sky-storm-sun { background: linear-gradient(180deg, #334155, #94a3b8, #fbcfe8); } /* 嵐のあとの朝焼け */
+        .sky-sun-rain { background: linear-gradient(180deg, #64748b, #bae6fd, #fde047); }
+        .sky-storm-sun { background: linear-gradient(180deg, #334155, #94a3b8, #fbcfe8); }
     </style>
 </head>
 <body class="text-slate-800 flex flex-col items-center justify-between p-4 md:p-8 overflow-x-hidden">
@@ -101,10 +101,15 @@
             
             <!-- STEP 1: オノマトペ選択画面 -->
             <div id="step-selection" class="space-y-6">
-                <div class="text-center space-y-2">
+                <!-- 説明文エリア（やさしくパッと目に留まるようにデザイン変更） -->
+                <div class="text-center space-y-3">
                     <span class="bg-sky-100 text-sky-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider">STEP 1</span>
                     <h2 class="text-xl md:text-2xl font-bold text-slate-700">今のあなたに近い「オノマトペ」を2〜3個選んでね</h2>
-                    <p class="text-sm text-slate-500">選んだ順に「アタマ・ムネ・カラダ」の状態として予報図を作ります</p>
+                    <div class="flex justify-center">
+                        <p class="text-sm md:text-base text-sky-700 font-medium bg-sky-50/80 px-5 py-2 rounded-2xl border border-sky-100 shadow-sm leading-relaxed max-w-xl">
+                            👉 選んだ順に <strong class="text-sky-900 font-bold underline decoration-sky-300 decoration-2">「アタマ・ムネ・カラダ」</strong> の状態として予報図を作ります
+                        </p>
+                    </div>
                 </div>
 
                 <!-- 選択状況表示 -->
@@ -118,8 +123,8 @@
 
                 <!-- カテゴリ別オノマトペリスト -->
                 <div class="space-y-4">
-                    <!-- カテゴリ切り替えタブ -->
-                    <div class="flex justify-start md:justify-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="category-tabs"></div>
+                    <!-- カテゴリ切り替えタブ（PC表示で見切れないよう自動折り返し flex-wrap に改善済み） -->
+                    <div class="flex flex-wrap justify-start sm:justify-center gap-2 pb-1" id="category-tabs"></div>
 
                     <!-- オノマトペグリッド -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[320px] overflow-y-auto p-2 border border-slate-100 rounded-2xl bg-white/50" id="onomatopoeia-grid"></div>
@@ -231,7 +236,7 @@
                             <h4 class="font-bold text-slate-700 flex items-center gap-2 mb-2">
                                 <span class="text-sky-500">🧐</span> 今のココロの現状分析（こころ模様）
                             </h4>
-                            <p class="text-sm text-slate-600 leading-relaxed" id="forecast-analysis">-</p>
+                            <div class="text-sm text-slate-600 leading-relaxed space-y-3" id="forecast-analysis">-</div>
                         </div>
 
                         <!-- 心の雨宿りアドバイス -->
@@ -264,6 +269,30 @@
                     </button>
                 </div>
 
+                <!-- 新設：さりげないご案内エリア -->
+                <div class="mt-8 pt-6 border-t border-slate-100 text-center space-y-4 max-w-md mx-auto">
+                    <!-- ① いのりんの画像に置き換え（大きすぎないよう幅w-20に設定、画像がない場合は可愛い水色の丸枠プレースホルダーを表示） -->
+                    <div class="flex justify-center select-none">
+                        <img src="inorin.png" alt="いのりん" class="w-20 h-20 object-contain drop-shadow-sm transform hover:scale-105 transition-transform duration-300" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/80x80/bae6fd/0369a1?text=Inorin'">
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        心のお天気予報いかがでしたか？<br>
+                        明日を気持ちよく迎えたい人、興味のある人は、<br>
+                        <strong class="font-bold text-sky-600">「祈詠み（いのりよみ）」</strong>の世界へご招待します。<br>
+                        気持ちを言葉にして、明日を描いていきましょう♪
+                    </p>
+                    <div class="pt-1">
+                        <!-- ② リンク先を公式Instagramに変更 -->
+                        <a href="https://www.instagram.com/inoriyomi.kokoro/" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-2 text-xs text-sky-600 hover:text-sky-700 bg-sky-50/50 hover:bg-sky-50 active:scale-95 px-5 py-2.5 rounded-full border border-sky-100/80 transition-all font-bold group shadow-sm">
+                            <i class="fa-solid fa-feather-pointed text-sky-500 group-hover:rotate-12 transition-transform duration-200"></i>
+                            <span>「祈詠み」の世界をのぞいてみる</span>
+                            <i class="fa-solid fa-chevron-right text-[8px] opacity-70 group-hover:translate-x-0.5 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
             </div>
 
         </main>
@@ -285,66 +314,62 @@
             WINDY: { id: 'windy', name: '風強め', emoji: '🌬', skyClass: 'sky-windy', subtitle: '風がビュービューと吹いています。ざわざわする気持ちの現れかも。' },
             RAINBOW: { id: 'rainbow', name: '虹', emoji: '🌈', skyClass: 'sky-rainbow', subtitle: '感動と共鳴。美しい虹がかかったような穏やかで素晴らしい状態。' },
             
-            // 新設：ブレンド（ミックス）お天気
+            // ブレンド（ミックス）お天気
             SUN_AND_RAIN: { id: 'sun_and_rain', name: '雨のち晴れ', emoji: '🌦️', skyClass: 'sky-sun-rain', subtitle: '心に涙の雨が降りつつも、そこへ温かい晴れ間や光が差し込み、心が回復へ向かっているグラデーションの状態です。' },
-            STORM_AND_SUN: { id: 'storm_and_sun', name: '嵐のち晴れ', emoji: '🌤️', skyClass: 'sky-storm-sun', subtitle: '激しい感情の嵐（イライラ・焦り）が去り、少しずつ穏やかな光が差し込んで落ち着きを取り戻しています。' }
+            STORM_AND_SUN: { id: 'storm_and_sun', name: '嵐のち晴れ', emoji: '🌤️', skyClass: 'sky-storm-sun', subtitle: '激しい感情 of 嵐（イライラ・焦り）が去り、少しずつ穏やかな光が差し込んで落ち着きを取り戻しています。' }
         };
 
-        // CSVから解析した完全データ（初期辞書データ・全49件）※「ふぅ…」「シクシク」を追加統合
+        // otonasi-data_2.csv に基づく、音靈・チャクラを完全に空欄にした最新の49件オノマトペデータベース
         const INITIAL_ONOMATOPOEIA = [
-            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '３・４', sound: 'め・み', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
-            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '違和感', category: '迷い・違和感・決められない', chakra: '３・４', sound: 'め・み２', analysis: 'この答、ちがうのかも', advice: 'しっかり見てからでもいいよ', tomorrow: '明日は視界が晴れるかも' },
-            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '決められない', category: '迷い・違和感・決められない', chakra: '３・４', sound: 'め・み３', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉妬', chakra: '１・２', sound: 'な・ゆ１', analysis: '不安な気持ちがざわめいています。', advice: 'まずはゆっくり深呼吸をしましょう。', tomorrow: '風は少しずつおさまる見込みです。' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '１・２', sound: 'な・ゆ２', analysis: '緊張で張り詰めています。', advice: '肩の力を抜いてみましょう。', tomorrow: '閉めた扉を緩められるかも' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '落ち着かない', category: '不安・緊張・落ち着かない・嫉妬', chakra: '１・２', sound: 'な・ゆ３', analysis: '落ち着かない気流が吹いています。', advice: 'あたたかい飲み物を飲んでみてください。', tomorrow: '落ち着きます' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '嫉妬', category: '不安・緊張・落ち着かない・嫉妬', chakra: '１・２', sound: 'な・ゆ４', analysis: '他人がまぶしく見えているのかも。', advice: '自分の足元を見つめてみましょう。', tomorrow: '自分らしさが見つかるでしょう' },
-            { word: 'ワクワク', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '２・５', sound: 'ゆ・ね', analysis: '内側の芽が動き出しています。', advice: '小さくてもいいので行動してみましょう。', tomorrow: '新しい景色との出会いがありそうです。' },
-            { word: 'ワクワク', type: '☀ 快晴', emotion: '好奇心', category: '喜び・好奇心・創造性', chakra: '２・５', sound: 'ゆ・ね２', analysis: 'やってみたい！の気持ちが溢れています。', advice: '心の羅針盤に従って一歩踏み出して。', tomorrow: '素敵な冒険が待っています。' },
-            { word: 'ワクワク', type: '☀ 快晴', emotion: '創造性', category: '喜び・好奇心・創造性', chakra: '２・５', sound: 'ゆ・ね３', analysis: 'アイデアが次々と湧き出ています。', advice: 'それをカタチにしてみましょう。', tomorrow: '新しい表現ができるようになります。' },
-            { word: 'ジーン', type: '🌈 虹', emotion: '感動', category: '感動・共鳴・気づき', chakra: '４・７', sound: 'ひ・み', analysis: '心が深いところで何かを受け取っています。', advice: '今の気づきを言葉にしてみましょう。', tomorrow: '大切なヒントが見つかるかもしれません。' },
-            { word: 'ジーン', type: '🌈 虹', emotion: '共鳴', category: '感動・共鳴・気づき', chakra: '４・７', sound: 'ひ・み２', analysis: '周りとの深い繋がりを感じています。', advice: 'その優しい共鳴を味わってください。', tomorrow: '調和のとれた一日になるでしょう。' },
-            { word: 'ジーン', type: '🌈 虹', emotion: '気づき', category: '感動・共鳴・気づき', chakra: '４・７', sound: 'ひ・み３', analysis: 'ハッと閃くような高気圧です。', advice: '気づいたことを忘れないようにメモを。', tomorrow: '新しい扉が開かれる日。' },
-            { word: 'メラメラ', type: '🌋 熱風', emotion: '嫉妬', category: '嫉妬', chakra: '３', sound: 'め・ら', analysis: '胸に熱い風が吹き荒れています。嫉妬は自分の憧れの裏返し。', advice: '本当に手に入れたいものは何か、自分の心に聞いてみましょう。', tomorrow: '嵐は去り、あなたの情熱に変わります。' },
-            { word: 'チクチク', type: '☁ 曇り', emotion: '嫉妬', category: '嫉妬', chakra: '４', sound: 'ち・く', analysis: '心がちくちくと痛む雲行きです。', advice: '自分と誰かを比べるのを一度お休みしましょう。', tomorrow: '心の痛みが和らいでいきます。' },
-            { word: 'グサッ', type: '⛈ 雷雨', emotion: '嫉妬', category: '嫉妬', chakra: '４', sound: 'ぐ・さ', analysis: '急な雷雨に打たれたような衝撃です。', advice: '痛む心にそっと手をあてて、労わってあげましょう。', tomorrow: '雨がすべてを洗い流してくれます。' },
-            { word: 'グッタリ', type: '☔ 雨', emotion: '無力感', category: '無力感・疲労・エネルギー不足', chakra: '１', sound: 'ぐ・た', analysis: 'エネルギーが底をついて雨に濡れています。', advice: 'とにかく横になって、ただ眠りましょう。何もしなくて大丈夫。', tomorrow: '少しずつ光が戻ってくるでしょう。' },
-            { word: 'イライラ', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '３', sound: 'い・ら', analysis: 'イライラという雷鳴が轟いています。', advice: '怒りのエネルギーを紙に殴り書きして破り捨ててみましょう。', tomorrow: '嵐のあとは澄み切った空が広がります。' },
-            { word: 'イライラ', type: '⛈ 雷雨', emotion: '焦り', category: '怒り・焦り', chakra: '３', sound: 'い・ら２', analysis: '時間や周りに追われて焦っているようです。', advice: '立ち止まって「今できること」だけに集中してみましょう。', tomorrow: '少しずつペースを取り戻せます。' },
-            { word: 'スッキリ', type: '☀ 快晴', emotion: '爽快感', category: '喜び・好奇心・創造性', chakra: '５・６', sound: 'す・き', analysis: '視界を遮るものがなく、非常にクリアな状態です。', advice: 'この調子でやりたいことをどんどん進めましょう！', tomorrow: '素晴らしいインスピレーションが湧くでしょう。' },
-            { word: 'スッキリ', type: '☀ 快晴', emotion: '達成感', category: '喜び・好奇心・創造性', chakra: '５・６', sound: 'す・き２', analysis: '一つのことをやり遂げた満足感に包まれています。', advice: '自分自身に「お疲れ様」と声をかけて労ってあげてください。', tomorrow: '次のステージへの扉が開きます。' },
-            { word: 'ウズウズ', type: '☀ 快晴', emotion: '焦燥感', category: '喜び・好奇心・創造性', chakra: '２', sound: 'う・ず', analysis: '早く行動したくて、エネルギーがはちきれそうです。', advice: 'まずは小さな一歩から始めてみましょう。焦らなくても大丈夫。', tomorrow: '新しい挑戦が実を結します。' },
-            { word: 'ウズウズ', type: '☀ 快晴', emotion: '意欲', category: '喜び・好奇心・創造性', chakra: '２', sound: 'う・ず２', analysis: '旺盛なやる気に満ち溢れています。', advice: '面白そう！と思ったことに飛び込んでみましょう。', tomorrow: '楽しい発見が待っています。' },
-            { word: 'しょんぼり', type: '☔ 雨', emotion: '悲しみ', category: '無力感・疲労・エネルギー不足', chakra: '４', sound: 'し・よ', analysis: '心に静かな雨が降っています。悲しむことは心の浄化です。', advice: '悲しい気持ちを否定せず、ただそっと寄り添ってあげてください。', tomorrow: '雨はやみ、静かな朝が訪れます。' },
-            { word: 'しょんぼり', type: '☔ 雨', emotion: '寂しさ', category: '無力感・疲労・エネルギー不足', chakra: '４', sound: 'し・よ２', analysis: '誰かと繋がりたくて、心がポツンと寂しがっています。', advice: '温かいスープを飲んだり、自分の体をぎゅっと抱きしめてみて。', tomorrow: 'あなたの心に温もり灯る出会いがあります。' },
-            { word: 'ドキドキ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '２・４', sound: 'ど・き', analysis: '胸の高鳴りが風を呼んでいます。', advice: '息をゆっくり深く吐いて、体を少し揺らして緊張をほぐしましょう。', tomorrow: '緊張はワクワクの裏返し。楽しむ準備ができています。' },
-            { word: 'ドキドキ', type: '🌬 風強め', emotion: '興奮', category: '不安・緊張・落ち着かない・嫉妬', chakra: '２・４', sound: 'ど・き２', analysis: '刺激的な出来事に心が躍っています。', advice: 'その興奮を思い切り楽しんで。ただし、落ち着く時間も大切に。', tomorrow: '刺激に満ちた特別な思い出が残ります。' },
-            { word: 'ほっこり', type: '🌈 虹', emotion: '安心感', category: '感動・共鳴・気づき', chakra: '４', sound: 'ほ・こ', analysis: '心が温かいぬくもりに包まれています。非常に調和の取れた気圧です。', advice: 'その安心感を全身で味わい、身近な人にもその温かさを分けてあげて。', tomorrow: '優しい絆がさらに深まります。' },
-            { word: 'ほっこり', type: '🌈 虹', emotion: '感謝', category: '感動・共鳴・気づき', chakra: '４', sound: 'ほ・こ２', analysis: '周りの人や環境への感謝が溢れています。', advice: '「ありがとう」の気持ちを言葉や行動で伝えてみましょう。', tomorrow: '感謝の循環が始まり、幸せが戻ってきます。' },
-            { word: 'カチカチ', type: '☁ 曇り', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '１・６', sound: 'か・ち', analysis: '体や心が強張って、ガチガチになっています。', advice: 'お風呂にゆっくり浸かるか、ストレッチで体をほぐしましょう。', tomorrow: '余計な力が抜けて、動きやすくなります。' },
-            { word: 'ぐらぐら', type: '⛈ 雷雨', emotion: '不安定', category: '迷い・違和感・決められない', chakra: '１', sound: 'ぐ・ら', analysis: '足元が揺らいで、自信を失いかけています。', advice: '自分の良いところを３つ思い出してみてください。あなたはそのままで素晴らしい。', tomorrow: '揺るぎない自分軸が戻ってきます。' },
-            { word: 'どんより', type: '☔ 雨', emotion: '憂鬱', category: '無力感・疲労・エネルギー不足', chakra: '１・６', sound: 'ど・ん', analysis: '重い雲が心を覆い、動くのが億劫になっています。', advice: '今日は無理に動かず、ゴロゴロ過ごすことを自分に許可して。', tomorrow: '心の雲が少しずつ軽くなっていきます。' },
-            { word: 'そわそわ', type: '🌬 風強め', emotion: '焦り', category: '不安・緊張・落ち着かない・嫉妬', chakra: '２・３', sound: 'そ・わ', analysis: '気ばかりが焦って、落ち着きを失っています。', advice: '目の前の「呼吸」だけに１分間意識を向けてみましょう。', tomorrow: '心の波が静まり、落ち着きを取り戻せます。' },
-            { word: 'すやすや', type: '🌈 虹', emotion: '安心', category: '感動・共鳴・気づき', chakra: '７', sound: 'す・や', analysis: '心が完全に解き放たれ、深い安らぎの中にいます。', advice: '睡眠の質を高めるため、寝具を整えたり、良い香りを漂わせてみて。', tomorrow: '明朝はすっきりと目覚めることができるでしょう。' },
-            { word: 'うるうる', type: '☔ 雨', emotion: '感動', category: '感動・共鳴・気づき', chakra: '４', sound: 'う・る', analysis: '美しいものや人の優しさに、胸がいっぱいになっています。', advice: '涙を流することで心のコリがほぐれます。思い切りうるうるして。', tomorrow: '心のレンズが綺麗になり、世界が美しく見えます。' },
-            { word: 'ぷんぷん', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '３', sound: 'ぷ・ん', analysis: '怒りの雲がもくもくと湧き上がっています。', advice: '冷たいお水を一杯飲んで、頭を少し冷やしてみましょう。', tomorrow: '怒りの裏側にある「本当の気持ち」に気づけるかも。' },
-            { word: 'ぼーっと', type: '☁ 曇り', emotion: '疲労', category: '無力感・疲労・エネルギー不足', chakra: '６・７', sound: 'ぼ・ー', analysis: '脳の活動が低下し、お疲れモードです。', advice: '何も考えない時間を意図的に作りましょう。昼寝もおすすめ。', tomorrow: '脳のエネルギーが充電され、スッキリします。' },
-            { word: 'ハラハラ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉妬', chakra: '４', sound: 'は・ら', analysis: '先のことが心配で、心が落ち着きません。', advice: '「今ここ」に集中して、自分にできることだけをやりましょう。', tomorrow: '不安の嵐は通り過ぎていきます。' },
-            { word: 'もんもん', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '３', sound: 'も・ん', analysis: '答えが出ず、暗いトンネルに入ったような状態です。', advice: '考えるのを一度やめて、好きなことに没頭してみましょう。', tomorrow: '意外なところから閃きが生まれるかもしれません。' },
-            { word: 'きらきら', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '５・７', sound: 'き・ら', analysis: '内なる輝きが外に溢れ出ています。絶好調の運気です。', advice: 'その輝きを活かして、表現活動や人と会うことを楽しんで。', tomorrow: 'あなたの周りにたくさんの人が集まってきます。' },
-            { word: 'るんるん', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '２・５', sound: 'る・ん', analysis: '足取りが軽く、心が歌っているような状態です。', advice: '好きな音楽をかけて、一緒に歌ったり踊ったりしてみて。', tomorrow: 'さらに高いエネルギーを引き寄せます。' },
-            { word: 'ぬくぬく', type: '🌈 虹', emotion: '安心', category: '感動・共鳴・気づき', chakra: '４', sound: 'ぬ・く', analysis: '安全なシェルターの中で、心から安心しています。', advice: '今の居心地の良さを存分に楽しんで、エネルギーを養いましょう。', tomorrow: '心に十分な栄養が行き届きます。' },
-            { word: 'じとじと', type: '☔ 雨', emotion: '不快', category: '迷い・違和感・決められない', chakra: '２', sound: 'じ・と', analysis: '周りの状況や関係が不快に感じられています。', advice: '境界線をしっかり引いて、自分だけの快適な空間を作りましょう。', tomorrow: '不快な湿気が引いていきます。' },
-            { word: 'むかむか', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '３', sound: 'む・か', analysis: '腹が立って、怒りの火花が散っています。', advice: '深呼吸をして、ハーブティーなどの落ち着く飲み物を飲みましょう。', tomorrow: '荒れ狂う感情が穏やかになっていきます。' },
-            { word: 'へとへと', type: '☔ 雨', emotion: '疲労', category: '無力感・疲労・エネルギー不足', chakra: '１', sound: 'へ・と', analysis: '完全に電池切れの状態です。', advice: '今日は家事や仕事を最低限にして、泥のように眠りましょう。', tomorrow: '睡眠こそが最高の特効薬です。' },
-            { word: 'シャキシャキ', type: '☀ 快晴', emotion: '元気', category: '喜び・好奇心・創造性', chakra: '３・５', sound: 'し・や', analysis: '頭も体もフル回転で、素晴らしいスタートを切れています。', advice: 'この推進力を活かして、重要なタスクや計画を一気に進めましょう。', tomorrow: '期待以上の成果を出せるはず。' },
-            { word: 'うっとり', type: '🌈 虹', emotion: '恍惚', category: '感動・共鳴・気づき', chakra: '４・６', sound: 'う・と', analysis: '美しい世界に魅了され、陶酔しています。', advice: 'その美しい余韻を大切に胸にしまって、日々を豊かに暮らしましょう。', tomorrow: '日常の風景がより彩り豊かになります。' },
-            
-            // 新規追加「ふぅ…」 (☀ 快晴から、よりおだやかな 🌈 虹へ分類を変更)
-            { word: 'ふぅ…', type: '🌈 虹', emotion: '安堵', category: '感動・共鳴・気づき', chakra: '４', sound: 'ふ・う', analysis: '張り詰めていた緊張の糸がほぐれ、心から安心できている状態です。', advice: '温かいハーブティーでも飲んで、この穏やかな余白の時間をたっぷり味わいましょう。', tomorrow: '明日は、さらに心がふんわり軽くなる心地よい出来事が舞い込む予報です。' },
-            
-            // 新規追加「シクシク」 (☔ 雨)
-            { word: 'シクシク', type: '☔ 雨', emotion: '悲しみ', category: '無力感・疲労・エネルギー不足', chakra: '４', sound: 'し・く', analysis: '心にしとしとと涙の雨が降っているような寂しさがあります。', advice: '無理に笑顔にならなくても大丈夫。その涙は、心を新しく洗うためのデトックスです。', tomorrow: '涙が乾いたあとの空には、優しいおだやかな晴れ間がのぞくでしょう。' }
+            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
+            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '違和感', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: 'この答、ちがうのかも', advice: 'しっかり見てからでもいいよ', tomorrow: '明日は視界が晴れるかも' },
+            { word: 'モヤモヤ', type: '☁ 曇り', emotion: '決められない', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '不安な気持ちがざわめいています。', advice: 'まずはゆっくり深呼吸をしましょう。', tomorrow: '風は少しずつおさまる見込みです。' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '緊張で張り詰めています。', advice: '肩の力を抜いてみましょう。', tomorrow: '閉めた扉を緩められるかも' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '落ち着かない', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '落ち着かない気流が吹いています。', advice: 'あたたかい飲み物を飲んでみてください。', tomorrow: '落ち着きます' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '嫉妬', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '他人がまぶしく見えているのかも。', advice: '自分の足元を見つめてみましょう。', tomorrow: '自分らしさが見つかるでしょう' },
+            { word: 'ワクワク', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '内側の芽が動き出しています。', advice: '小さくてもいいので行動してみましょう。', tomorrow: '新しい景色との出会いがありそうです。' },
+            { word: 'ワクワク', type: '☀ 快晴', emotion: '好奇心', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: 'やってみたい！の気持ちが溢れています。', advice: '心の羅針盤に従って一歩踏み出して。', tomorrow: '素敵な冒険が待っています。' },
+            { word: 'ワクワク', type: '☀ 快晴', emotion: '創造性', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: 'アイデアが次々と湧き出ています。', advice: 'それをカタチにしてみましょう。', tomorrow: '新しい表現ができるようになります。' },
+            { word: 'ジーン', type: '🌈 虹', emotion: '感動', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '心が深いところで何かを受け取っています。', advice: '今の気づきを言葉にしてみましょう。', tomorrow: '大切なヒントが見つかるかもしれません。' },
+            { word: 'ジーン', type: '🌈 虹', emotion: '共鳴', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '周りとの深い繋がりを感じています。', advice: 'その優しい共鳴を味わってください。', tomorrow: '調和のとれた一日になるでしょう。' },
+            { word: 'ジーン', type: '🌈 虹', emotion: '気づき', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: 'ハッと閃くような高気圧です。', advice: '気づいたことを忘れないようにメモを。', tomorrow: '新しい扉が開かれる日。' },
+            { word: 'メラメラ', type: '🌋 熱風', emotion: '嫉妬', category: '嫉妬', chakra: '', sound: '', analysis: '胸に熱い風が吹き荒れています。嫉妬は自分の憧れの裏返し。', advice: '本当に手に入れたいものは何か、自分の心に聞いてみましょう。', tomorrow: '嵐は去り、あなたの情熱に変わります。' },
+            { word: 'チクチク', type: '☁ 曇り', emotion: '嫉妬', category: '嫉ロット', chakra: '', sound: '', analysis: '心がちくちくと痛む雲行きです。', advice: '自分と誰かを比べるのを一度お休みしましょう。', tomorrow: '心の痛みが和らいでいきます。' },
+            { word: 'グサッ', type: '⛈ 雷雨', emotion: '嫉妬', category: '嫉ロット', chakra: '', sound: '', analysis: '急な雷雨に打たれたような衝撃です。', advice: '痛む心にそっと手をあてて、労わってあげましょう。', tomorrow: '雨がすべてを洗い流してくれます。' },
+            { word: 'グッタリ', type: '☔ 雨', emotion: '無力感', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: 'エネルギーが底をついて雨に濡れています。', advice: 'とにかく横になって、ただ眠りましょう。何もしなくて大丈夫。', tomorrow: '少しずつ光が戻ってくるでしょう。' },
+            { word: 'イライラ', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '', sound: '', analysis: 'イライラという雷鳴が轟いています。', advice: '怒りのエネルギーを紙に殴り書きして破り捨ててみましょう。', tomorrow: '嵐のあとは澄み切った空が広がります。' },
+            { word: 'イライラ', type: '⛈ 雷雨', emotion: '焦り', category: '怒り・焦り', chakra: '', sound: '', analysis: '時間や周りに追われて焦っているようです。', advice: '立ち止まって「今できること」だけに集中してみましょう。', tomorrow: '少しずつペースを取り戻せます。' },
+            { word: 'スッキリ', type: '☀ 快晴', emotion: '爽快感', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '視界を遮るものがなく、非常にクリアな状態です。', advice: 'この調子でやりたいことをどんどん進めましょう！', tomorrow: '素晴らしいインスピレーションが湧くでしょう。' },
+            { word: 'スッキリ', type: '☀ 快晴', emotion: '達成感', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '一つのことをやり遂げた満足感に包まれています。', advice: '自分自身に「お疲れ様」と声をかけて労ってあげてください。', tomorrow: '次のステージへの扉が開きます。' },
+            { word: 'ウズウズ', type: '☀ 快晴', emotion: '焦燥感', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '早く行動したくて、エネルギーがはちきれそうです。', advice: 'まずは小さな一歩から始めてみましょう。焦らなくても大丈夫。', tomorrow: '新しい挑戦が実を結びます。' },
+            { word: 'ウズウズ', type: '☀ 快晴', emotion: '意欲', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '旺盛なやる気に満ち溢れています。', advice: '面白そう！と思ったことに飛び込んでみましょう。', tomorrow: '楽しい発見が待っています。' },
+            { word: 'しょんぼり', type: '☔ 雨', emotion: '悲しみ', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '心に静かな雨が降っています。悲しむことは心の浄化です。', advice: '悲しい気持ちを否定せず、ただそっと寄り添ってあげてください。', tomorrow: '雨はやみ、静かな朝が訪れます。' },
+            { word: 'しょんぼり', type: '☔ 雨', emotion: '寂しさ', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '誰かと繋がりたくて、心がポツンと寂しがっています。', advice: '温かいスープを飲んだり、自分の体をぎゅっと抱きしめてみて。', tomorrow: 'あなたの心に温もり灯る出会いがあります。' },
+            { word: 'ドキドキ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '胸の高鳴りが風を呼んでいます。', advice: '息をゆっくり深く吐いて、体を少し揺らして緊張をほぐしましょう。', tomorrow: '緊張はワクワクの裏返し。楽しむ準備ができています。' },
+            { word: 'ドキドキ', type: '🌬 風強め', emotion: '興奮', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '刺激的な出来事に心が躍っています。', advice: 'その興奮を思い切り楽しんで。ただし、落ち着く時間も大切に。', tomorrow: '刺激に満ちた特別な思い出が残ります。' },
+            { word: 'ほっこり', type: '🌈 虹', emotion: '安心感', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '心が温かいぬくもりに包まれています。非常に調和の取れた気圧です。', advice: 'その安心感を全身で味わい、身近な人にもその温かさを分けてあげて。', tomorrow: '優しい絆がさらに深まります。' },
+            { word: 'ほっこり', type: '🌈 虹', emotion: '感謝', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '周りの人や環境への感謝が溢れています。', advice: '「ありがとう」の気持ちを言葉や行動で伝えてみましょう。', tomorrow: '感謝の循環が始まり、幸せが戻ってきます。' },
+            { word: 'カチカチ', type: '☁ 曇り', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '体や心が強張って、ガチガチになっています。', advice: 'お風呂にゆっくり浸かるか、ストレッチで体をほぐしましょう。', tomorrow: '余計な力が抜けて、動きやすくなります。' },
+            { word: 'ぐらぐら', type: '⛈ 雷雨', emotion: '不安定', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '足元が揺らいで、自信を失いかけています。', advice: '自分の良いところを３つ思い出してみてください。あなたはそのままで素晴らしい。', tomorrow: '揺るぎない自分軸が戻ってきます。' },
+            { word: 'どんより', type: '☔ 雨', emotion: '憂鬱', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '重い雲が心を覆い、動くのが億劫になっています。', advice: '今日は無理に動かず、ゴロゴロ過ごすことを自分に許可して。', tomorrow: '心の雲が少しずつ軽くなっていきます。' },
+            { word: 'そわそわ', type: '🌬 風強め', emotion: '焦り', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '気ばかりが焦って、落ち着きを失っています。', advice: '目の前の「呼吸」だけに１分間意識を向けてみましょう。', tomorrow: '心の波が静まり、落ち着きを取り戻せます。' },
+            { word: 'すやすや', type: '🌈 虹', emotion: '安心', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '心が完全に解き放たれ、深い安らぎの中にいます。', advice: '睡眠の質を高めるため、寝具を整えたり、良い香りを漂わせてみて。', tomorrow: '明朝はすっきりと目覚めることができるでしょう。' },
+            { word: 'うるうる', type: '☔ 雨', emotion: '感動', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '美しいものや人の優しさに、胸がいっぱいになっています。', advice: '涙を流することで心のコリがほぐれます。思い切りうるうるして。', tomorrow: '心のレンズが綺麗になり、世界が美しく見えます。' },
+            { word: 'ぷんぷん', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '', sound: '', analysis: '怒りの雲がもくもくと湧き上がっています。', advice: '冷たいお水を一杯飲んで、頭を少し冷やしてみましょう。', tomorrow: '怒りの裏側にある「本当の気持ち」に気づけるかも。' },
+            { word: 'ぼーっと', type: '☁ 曇り', emotion: '疲労', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '脳 of 活動が低下し、お疲れモードです。', advice: '何も考えない時間を意図的に作りましょう。昼寝もおすすめ。', tomorrow: '脳 of エネルギーが充電され、スッキリします。' },
+            { word: 'ハラハラ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '先のことが心配で、心が落ち着きません。', advice: '「今ここ」に集中して、自分にできることだけをやりましょう。', tomorrow: '不安の嵐は通り過ぎていきます。' },
+            { word: 'もんもん', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えが出ず、暗いトンネルに入ったような状態です。', advice: '考えるのを一度やめて、好きなことに没頭してみましょう。', tomorrow: '意外なところから閃きが生まれるかもしれません。' },
+            { word: 'きらきら', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '内なる輝きが外に溢れ出ています。絶好調の運気です。', advice: 'その輝きを活かして、表現活動や人と会うことを楽しんで。', tomorrow: 'あなたの周りにたくさんの人が集まってきます。' },
+            { word: 'るんるん', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '足取りが軽く、心が歌っているような状態です。', advice: '好きな音楽をかけて、一緒に歌ったり踊ったりしてみて。', tomorrow: 'さらに高いエネルギーを引き寄せます。' },
+            { word: 'ぬくぬく', type: '🌈 虹', emotion: '安心', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '安全なシェルターの中で、心から安心しています。', advice: '今の居心地の良さを存分に楽しんで、エネルギーを養いましょう。', tomorrow: '心に十分な栄養が行き届きます。' },
+            { word: 'じとじと', type: '☔ 雨', emotion: '不快', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '周りの状況や関係が不快に感じられています。', advice: '境界線をしっかり引いて、自分だけの快適な空間を作りましょう。', tomorrow: '不快な湿気が引いていきます。' },
+            { word: 'むかむか', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '', sound: '', analysis: '腹が立って、怒りの火花が散っています。', advice: '深呼吸をして、ハーブティーなどの落ち着く飲み物を飲みましょう。', tomorrow: '荒れ狂う感情が穏やかになっていきます。' },
+            { word: 'へとへと', type: '☔ 雨', emotion: '疲労', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '完全に電池切れの状態です。', advice: '今日は家事や仕事を最低限にして、泥のように眠りましょう。', tomorrow: '睡眠こそが最高の特効薬です。' },
+            { word: 'シャキシャキ', type: '☀ 快晴', emotion: '元気', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '頭も体もフル回転で、素晴らしいスタートを切れています。', advice: 'この推進力を活かして、重要なタスクや計画を一気に進めましょう。', tomorrow: '期待以上の成果を出せるはず。' },
+            { word: 'うっとり', type: '🌈 虹', emotion: '恍惚', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '美しい世界に魅了され、陶酔しています。', advice: 'その美しい余韻を大切に胸にしまって、日々を豊かに暮らしましょう。', tomorrow: '日常の風景がより彩り豊かになります。' },
+            { word: 'ふぅ…', type: '🌈 虹', emotion: '安堵', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '張り詰めていた緊張の糸がほぐれ、心から安心できている状態です。', advice: '温かいハーブティーでも飲んで、この穏やかな余白の時間をたっぷり味わいましょう。', tomorrow: '明日は、さらに心がふんわり軽くなる心地よい出来事が舞い込む予報です。' },
+            { word: 'シクシク', type: '☔ 雨', emotion: '悲しみ', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '心にしとしとと涙の雨が降っているような寂しさがあります。', advice: '無理に笑顔にならなくても大丈夫。その涙は、心を新しく洗うためのデトックスです。', tomorrow: '涙が乾いたあとの空には、優しいおだやかな晴れ間がのぞくでしょう。' }
         ];
 
         // 状態データ
@@ -371,7 +396,7 @@
             if (cat.includes('不安') || cat.includes('緊張')) return 'anxious';
             if (cat.includes('喜び') || cat.includes('好奇心')) return 'energetic';
             if (cat.includes('感動') || cat.includes('共鳴')) return 'inspired';
-            if (cat.includes('嫉妬')) return 'angry';
+            if (cat.includes('嫉妬') || cat.includes('おののき') || cat.includes('嫉調')) return 'angry';
             if (cat.includes('無力感') || cat.includes('疲労')) return 'sad';
             return 'other';
         }
@@ -585,6 +610,29 @@
             };
         }
 
+        /* 音靈・チャクラが設定されている場合のみ表示するヘッダー装飾関数 */
+        function getHeaderWithMeta(baseTitle, wordData) {
+            let metaParts = [];
+            
+            // 音靈の空欄チェック (undefined, null, 空文字, ハイフンを除外)
+            if (wordData.sound && wordData.sound.trim() !== '' && wordData.sound.trim() !== '-') {
+                metaParts.push('音靈: ' + wordData.sound.trim());
+            }
+            
+            // チャクラの空欄チェック (undefined, null, 空文字, ハイフンを除外)
+            if (wordData.chakra && wordData.chakra.trim() !== '' && wordData.chakra.trim() !== '-') {
+                metaParts.push('チャクラ: ' + wordData.chakra.trim());
+            }
+
+            // データが存在する場合のみカッコ[]を付与して表示
+            if (metaParts.length > 0) {
+                return baseTitle + ' [' + metaParts.join(' | ') + ']';
+            }
+            
+            // どちらも存在しない場合はタイトルのみ表示
+            return baseTitle;
+        }
+
         /* 結果反映 */
         function displayForecastResult(forecastData) {
             const atamaData = state.selectedWords[0];
@@ -612,28 +660,31 @@
             setupWeatherEffects(forecastData.overall.id);
 
             // 解析テキストの構築 (チャクラ・音靈も交えた解説)
-            let analysisHTML = "現在、アタマ地方には <strong>「" + atamaData.word + "」 (" + atamaData.type + ")</strong>、<br>" +
+            let analysisHTML = "<p>現在、アタマ地方には <strong>「" + atamaData.word + "」 (" + atamaData.type + ")</strong>、<br>" +
                 "ムネ地方には <strong>「" + muneData.word + "」 (" + muneData.type + ")</strong>";
             if (state.selectedWords[2]) {
                 analysisHTML += "、カラダ地方には <strong>「" + karadaData.word + "」 (" + karadaData.type + ")</strong>";
             }
-            analysisHTML += " の風が吹き込んでいます。<br><br>";
+            analysisHTML += " の風が吹き込んでいます。</p>";
 
-            analysisHTML += '<div class="space-y-3 mt-2 text-slate-700">';
+            analysisHTML += '<div class="space-y-3 mt-4 text-slate-700">';
+            
             // アタマ
             analysisHTML += '<div class="bg-white/60 p-3 rounded-xl border border-slate-100">' +
-                '<span class="font-bold text-sky-800 text-xs">🧠 アタマの状態 [音靈: ' + (atamaData.sound || '-') + ' | チャクラ: ' + (atamaData.chakra || '-') + ']</span>' +
+                '<span class="font-bold text-sky-800 text-xs">' + getHeaderWithMeta('🧠 アタマの状態', atamaData) + '</span>' +
                 '<p class="text-xs text-slate-600 mt-1">' + (atamaData.analysis || '思考は安定していますが、少し整理が必要かもしれません。') + '</p>' +
                 '</div>';
+                
             // ムネ
             analysisHTML += '<div class="bg-white/60 p-3 rounded-xl border border-slate-100">' +
-                '<span class="font-bold text-sky-800 text-xs">❤️ ムネの状態 [音靈: ' + (muneData.sound || '-') + ' | チャクラ: ' + (muneData.chakra || '-') + ']</span>' +
+                '<span class="font-bold text-sky-800 text-xs">' + getHeaderWithMeta('❤️ ムネの状態', muneData) + '</span>' +
                 '<p class="text-xs text-slate-600 mt-1">' + (muneData.analysis || '感情が優しく動いています。') + '</p>' +
                 '</div>';
+                
             // カラダ
             if (state.selectedWords[2] || state.selectedWords.length === 2) {
                 analysisHTML += '<div class="bg-white/60 p-3 rounded-xl border border-slate-100">' +
-                    '<span class="font-bold text-sky-800 text-xs">💪 カラダの状態 [音靈: ' + (karadaData.sound || '-') + ' | チャクラ: ' + (karadaData.chakra || '-') + ']</span>' +
+                    '<span class="font-bold text-sky-800 text-xs">' + getHeaderWithMeta('💪 カラダの状態', karadaData) + '</span>' +
                     '<p class="text-xs text-slate-600 mt-1">' + (karadaData.analysis || '少し休息を求めているかもしれません。') + '</p>' +
                     '</div>';
             }
