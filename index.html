@@ -92,21 +92,21 @@
                 <span>🌤️</span>心のお天気予報
             </h1>
             <p class="text-slate-500 mt-2 text-sm md:text-base">
-                オノマトペをぽちぽち選ぶだけ。あなたの今のココロ予報をお伝えします。
+                ことば（オノマトペ）をぽちぽち選ぶだけ。あなたの今のココロ予報をお伝えします。
             </p>
         </header>
 
         <!-- メインコンテンツ -->
         <main class="bg-white/90 backdrop-blur-md rounded-3xl p-6 md:p-8 shadow-xl border border-white/50 relative overflow-hidden">
             
-            <!-- STEP 1: オノマトペ選択画面 -->
+            <!-- STEP 1: ことば（オノマトペ）選択画面 -->
             <div id="step-selection" class="space-y-6">
-                <!-- 説明文エリア（やさしくパッと目に留まるようにデザイン変更） -->
+                <!-- 説明文エリア（やさしく目に留まるようにリデザイン済み） -->
                 <div class="text-center space-y-3">
                     <span class="bg-sky-100 text-sky-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider">STEP 1</span>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-700">今のあなたに近い「オノマトペ」を2〜3個選んでね</h2>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-700">今のあなたに近い「ことば（オノマトペ）」を2〜3個選んでね</h2>
                     <div class="flex justify-center">
-                        <p class="text-sm md:text-base text-sky-700 font-medium bg-sky-50/80 px-5 py-2 rounded-2xl border border-sky-100 shadow-sm leading-relaxed max-w-xl">
+                        <p class="text-sm md:text-base text-sky-700 font-medium bg-sky-50/80 px-5 py-2.5 rounded-2xl border border-sky-100 shadow-sm leading-relaxed max-w-xl">
                             👉 選んだ順に <strong class="text-sky-900 font-bold underline decoration-sky-300 decoration-2">「アタマ・ムネ・カラダ」</strong> の状態として予報図を作ります
                         </p>
                     </div>
@@ -114,19 +114,19 @@
 
                 <!-- 選択状況表示 -->
                 <div class="bg-slate-50/80 rounded-2xl p-4 border border-dashed border-slate-200 flex flex-col items-center gap-3">
-                    <div class="text-xs text-slate-400 font-bold tracking-wider uppercase">選択したオノマトペ</div>
+                    <div class="text-xs text-slate-400 font-bold tracking-wider uppercase">選択したことば（オノマトペ）</div>
                     <div class="flex items-center justify-center gap-3 min-h-[50px] flex-wrap" id="selected-tags-container">
-                        <span class="text-slate-400 text-sm italic" id="placeholder-text">オノマトペを選択してください（残り3個）</span>
+                        <span class="text-slate-400 text-sm italic" id="placeholder-text">ことば（オノマトペ）を選択してください（残り3個）</span>
                     </div>
                     <div class="text-xs text-sky-600 font-bold" id="selection-counter">0 / 3 個選択中 (あと3個選んでね)</div>
                 </div>
 
-                <!-- カテゴリ別オノマトペリスト -->
+                <!-- カテゴリ別ことばリスト -->
                 <div class="space-y-4">
-                    <!-- カテゴリ切り替えタブ（PC表示で見切れないよう自動折り返し flex-wrap に改善済み） -->
+                    <!-- カテゴリ切り替えタブ（PC見切れ防止折り返しスタイルに修正済み） -->
                     <div class="flex flex-wrap justify-start sm:justify-center gap-2 pb-1" id="category-tabs"></div>
 
-                    <!-- オノマトペグリッド -->
+                    <!-- ことばグリッド -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-h-[320px] overflow-y-auto p-2 border border-slate-100 rounded-2xl bg-white/50" id="onomatopoeia-grid"></div>
                 </div>
 
@@ -149,7 +149,7 @@
                 </div>
                 <div class="text-center space-y-2">
                     <h3 class="text-xl font-bold text-slate-700" id="loading-text">雲の動きを観測中...</h3>
-                    <p class="text-xs text-slate-400">オノマトペからあなたの心の気圧を計算しています</p>
+                    <p class="text-xs text-slate-400">ことば（オノマトペ）からあなたの心の気圧を計算しています</p>
                 </div>
             </div>
 
@@ -261,17 +261,19 @@
 
                 <!-- アクションボタン群 -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                    <!-- ④ クリップボードコピーボタンは一時非表示（あとで復活できるようコメントアウトとして保持）
                     <button id="btn-share" class="w-full sm:w-auto px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-full shadow-md transition-all flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-share-nodes"></i> 予報結果をクリップボードにコピー
                     </button>
+                    -->
                     <button id="btn-speak" class="w-full sm:w-auto px-6 py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold border border-indigo-200 rounded-full shadow-sm transition-all flex items-center justify-center gap-2 text-sm">
                         <i class="fa-solid fa-volume-high"></i> 音声で予報を聞く
                     </button>
                 </div>
 
-                <!-- 新設：さりげないご案内エリア -->
+                <!-- さりげないご案内エリア -->
                 <div class="mt-8 pt-6 border-t border-slate-100 text-center space-y-4 max-w-md mx-auto">
-                    <!-- ① いのりんの画像に置き換え（大きすぎないよう幅w-20に設定、画像がない場合は可愛い水色の丸枠プレースホルダーを表示） -->
+                    <!-- ① いのりん画像表示（大きすぎないw-20に設定、画像がない場合は可愛い水色の丸枠プレースホルダーを表示） -->
                     <div class="flex justify-center select-none">
                         <img src="inorin.png" alt="いのりん" class="w-20 h-20 object-contain drop-shadow-sm transform hover:scale-105 transition-transform duration-300" 
                              onerror="this.onerror=null; this.src='https://placehold.co/80x80/bae6fd/0369a1?text=Inorin'">
@@ -283,11 +285,11 @@
                         気持ちを言葉にして、明日を描いていきましょう♪
                     </p>
                     <div class="pt-1">
-                        <!-- ② リンク先を公式Instagramに変更 -->
+                        <!-- ⑤ インスタの公式リンクへ名称を分かりやすく変更 -->
                         <a href="https://www.instagram.com/inoriyomi.kokoro/" target="_blank" rel="noopener noreferrer" 
                            class="inline-flex items-center gap-2 text-xs text-sky-600 hover:text-sky-700 bg-sky-50/50 hover:bg-sky-50 active:scale-95 px-5 py-2.5 rounded-full border border-sky-100/80 transition-all font-bold group shadow-sm">
                             <i class="fa-solid fa-feather-pointed text-sky-500 group-hover:rotate-12 transition-transform duration-200"></i>
-                            <span>「祈詠み」の世界をのぞいてみる</span>
+                            <span>「祈詠み」の世界をインスタでのぞいてみる</span>
                             <i class="fa-solid fa-chevron-right text-[8px] opacity-70 group-hover:translate-x-0.5 transition-transform"></i>
                         </a>
                     </div>
@@ -319,15 +321,15 @@
             STORM_AND_SUN: { id: 'storm_and_sun', name: '嵐のち晴れ', emoji: '🌤️', skyClass: 'sky-storm-sun', subtitle: '激しい感情 of 嵐（イライラ・焦り）が去り、少しずつ穏やかな光が差し込んで落ち着きを取り戻しています。' }
         };
 
-        // otonasi-data_2.csv に基づく、音靈・チャクラを完全に空欄にした最新の49件オノマトペデータベース
+        // otonasi-data_2.csv に基づく、音靈・チャクラを完全に空欄にした最新の49件データベース
         const INITIAL_ONOMATOPOEIA = [
             { word: 'モヤモヤ', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
             { word: 'モヤモヤ', type: '☁ 曇り', emotion: '違和感', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: 'この答、ちがうのかも', advice: 'しっかり見てからでもいいよ', tomorrow: '明日は視界が晴れるかも' },
             { word: 'モヤモヤ', type: '☁ 曇り', emotion: '決められない', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えがないのではなくまだ整理されていない状態です。', advice: '急いで決めなくても大丈夫。紙に書き出してみましょう。', tomorrow: '雲の切れ間から光が差し込むかもしれません。' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '不安な気持ちがざわめいています。', advice: 'まずはゆっくり深呼吸をしましょう。', tomorrow: '風は少しずつおさまる見込みです。' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '緊張で張り詰めています。', advice: '肩の力を抜いてみましょう。', tomorrow: '閉めた扉を緩められるかも' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '落ち着かない', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '落ち着かない気流が吹いています。', advice: 'あたたかい飲み物を飲んでみてください。', tomorrow: '落ち着きます' },
-            { word: 'ざわざわ', type: '🌬 風強め', emotion: '嫉妬', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '他人がまぶしく見えているのかも。', advice: '自分の足元を見つめてみましょう。', tomorrow: '自分らしさが見つかるでしょう' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '不安な気持ちがざわめいています。', advice: 'まずはゆっくり深呼吸をしましょう。', tomorrow: '風は少しずつおさまる見込みです。' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '緊張で張り詰めています。', advice: '肩の力を抜いてみましょう。', tomorrow: '閉めた扉を緩められるかも' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '落ち着かない', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '落ち着かない気流が吹いています。', advice: 'あたたかい飲み物を飲んでみてください。', tomorrow: '落ち着きます' },
+            { word: 'ざわざわ', type: '🌬 風強め', emotion: '嫉妬', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '他人がまぶしく見えているのかも。', advice: '自分の足元を見つめてみましょう。', tomorrow: '自分らしさが見つかるでしょう' },
             { word: 'ワクワク', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '内側の芽が動き出しています。', advice: '小さくてもいいので行動してみましょう。', tomorrow: '新しい景色との出会いがありそうです。' },
             { word: 'ワクワク', type: '☀ 快晴', emotion: '好奇心', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: 'やってみたい！の気持ちが溢れています。', advice: '心の羅針盤に従って一歩踏み出して。', tomorrow: '素敵な冒険が待っています。' },
             { word: 'ワクワク', type: '☀ 快晴', emotion: '創造性', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: 'アイデアが次々と湧き出ています。', advice: 'それをカタチにしてみましょう。', tomorrow: '新しい表現ができるようになります。' },
@@ -335,8 +337,8 @@
             { word: 'ジーン', type: '🌈 虹', emotion: '共鳴', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '周りとの深い繋がりを感じています。', advice: 'その優しい共鳴を味わってください。', tomorrow: '調和のとれた一日になるでしょう。' },
             { word: 'ジーン', type: '🌈 虹', emotion: '気づき', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: 'ハッと閃くような高気圧です。', advice: '気づいたことを忘れないようにメモを。', tomorrow: '新しい扉が開かれる日。' },
             { word: 'メラメラ', type: '🌋 熱風', emotion: '嫉妬', category: '嫉妬', chakra: '', sound: '', analysis: '胸に熱い風が吹き荒れています。嫉妬は自分の憧れの裏返し。', advice: '本当に手に入れたいものは何か、自分の心に聞いてみましょう。', tomorrow: '嵐は去り、あなたの情熱に変わります。' },
-            { word: 'チクチク', type: '☁ 曇り', emotion: '嫉妬', category: '嫉ロット', chakra: '', sound: '', analysis: '心がちくちくと痛む雲行きです。', advice: '自分と誰かを比べるのを一度お休みしましょう。', tomorrow: '心の痛みが和らいでいきます。' },
-            { word: 'グサッ', type: '⛈ 雷雨', emotion: '嫉妬', category: '嫉ロット', chakra: '', sound: '', analysis: '急な雷雨に打たれたような衝撃です。', advice: '痛む心にそっと手をあてて、労わってあげましょう。', tomorrow: '雨がすべてを洗い流してくれます。' },
+            { word: 'チクチク', type: '☁ 曇り', emotion: '嫉妬', category: '嫉妬', chakra: '', sound: '', analysis: '心がちくちくと痛む雲行きです。', advice: '自分と誰かを比べるのを一度お休みしましょう。', tomorrow: '心の痛みが和らいでいきます。' },
+            { word: 'グサッ', type: '⛈ 雷雨', emotion: '嫉妬', category: '嫉妬', chakra: '', sound: '', analysis: '急な雷雨に打たれたような衝撃です。', advice: '痛む心にそっと手をあてて、労わってあげましょう。', tomorrow: '雨がすべてを洗い流してくれます。' },
             { word: 'グッタリ', type: '☔ 雨', emotion: '無力感', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: 'エネルギーが底をついて雨に濡れています。', advice: 'とにかく横になって、ただ眠りましょう。何もしなくて大丈夫。', tomorrow: '少しずつ光が戻ってくるでしょう。' },
             { word: 'イライラ', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '', sound: '', analysis: 'イライラという雷鳴が轟いています。', advice: '怒りのエネルギーを紙に殴り書きして破り捨ててみましょう。', tomorrow: '嵐のあとは澄み切った空が広がります。' },
             { word: 'イライラ', type: '⛈ 雷雨', emotion: '焦り', category: '怒り・焦り', chakra: '', sound: '', analysis: '時間や周りに追われて焦っているようです。', advice: '立ち止まって「今できること」だけに集中してみましょう。', tomorrow: '少しずつペースを取り戻せます。' },
@@ -346,19 +348,19 @@
             { word: 'ウズウズ', type: '☀ 快晴', emotion: '意欲', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '旺盛なやる気に満ち溢れています。', advice: '面白そう！と思ったことに飛び込んでみましょう。', tomorrow: '楽しい発見が待っています。' },
             { word: 'しょんぼり', type: '☔ 雨', emotion: '悲しみ', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '心に静かな雨が降っています。悲しむことは心の浄化です。', advice: '悲しい気持ちを否定せず、ただそっと寄り添ってあげてください。', tomorrow: '雨はやみ、静かな朝が訪れます。' },
             { word: 'しょんぼり', type: '☔ 雨', emotion: '寂しさ', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '誰かと繋がりたくて、心がポツンと寂しがっています。', advice: '温かいスープを飲んだり、自分の体をぎゅっと抱きしめてみて。', tomorrow: 'あなたの心に温もり灯る出会いがあります。' },
-            { word: 'ドキドキ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '胸の高鳴りが風を呼んでいます。', advice: '息をゆっくり深く吐いて、体を少し揺らして緊張をほぐしましょう。', tomorrow: '緊張はワクワクの裏返し。楽しむ準備ができています。' },
-            { word: 'ドキドキ', type: '🌬 風強め', emotion: '興奮', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '刺激的な出来事に心が躍っています。', advice: 'その興奮を思い切り楽しんで。ただし、落ち着く時間も大切に。', tomorrow: '刺激に満ちた特別な思い出が残ります。' },
+            { word: 'ドキドキ', type: '🌬 風強め', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '胸の高鳴りが風を呼んでいます。', advice: '息をゆっくり深く吐いて、体を少し揺らして緊張をほぐしましょう。', tomorrow: '緊張はワクワクの裏返し。楽しむ準備ができています。' },
+            { word: 'ドキドキ', type: '🌬 風強め', emotion: '興奮', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '刺激的な出来事に心が躍っています。', advice: 'その興奮を思い切り楽しんで。ただし、落ち着く時間も大切に。', tomorrow: '刺激に満ちた特別な思い出が残ります。' },
             { word: 'ほっこり', type: '🌈 虹', emotion: '安心感', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '心が温かいぬくもりに包まれています。非常に調和の取れた気圧です。', advice: 'その安心感を全身で味わい、身近な人にもその温かさを分けてあげて。', tomorrow: '優しい絆がさらに深まります。' },
             { word: 'ほっこり', type: '🌈 虹', emotion: '感謝', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '周りの人や環境への感謝が溢れています。', advice: '「ありがとう」の気持ちを言葉や行動で伝えてみましょう。', tomorrow: '感謝の循環が始まり、幸せが戻ってきます。' },
-            { word: 'カチカチ', type: '☁ 曇り', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '体や心が強張って、ガチガチになっています。', advice: 'お風呂にゆっくり浸かるか、ストレッチで体をほぐしましょう。', tomorrow: '余計な力が抜けて、動きやすくなります。' },
+            { word: 'カチカチ', type: '☁ 曇り', emotion: '緊張', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '体や心が強張って、ガチガチになっています。', advice: 'お風呂にゆっくり浸かるか、ストレッチで体をほぐしましょう。', tomorrow: '余計な力が抜けて、動きやすくなります。' },
             { word: 'ぐらぐら', type: '⛈ 雷雨', emotion: '不安定', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '足元が揺らいで、自信を失いかけています。', advice: '自分の良いところを３つ思い出してみてください。あなたはそのままで素晴らしい。', tomorrow: '揺るぎない自分軸が戻ってきます。' },
             { word: 'どんより', type: '☔ 雨', emotion: '憂鬱', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '重い雲が心を覆い、動くのが億劫になっています。', advice: '今日は無理に動かず、ゴロゴロ過ごすことを自分に許可して。', tomorrow: '心の雲が少しずつ軽くなっていきます。' },
-            { word: 'そわそわ', type: '🌬 風強め', emotion: '焦り', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '気ばかりが焦って、落ち着きを失っています。', advice: '目の前の「呼吸」だけに１分間意識を向けてみましょう。', tomorrow: '心の波が静まり、落ち着きを取り戻せます。' },
+            { word: 'そわそわ', type: '🌬 風強め', emotion: '焦り', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '気ばかりが焦って、落ち着きを失っています。', advice: '目の前の「呼吸」だけに１分間意識を向けてみましょう。', tomorrow: '心の波が静まり、落ち着きを取り戻せます。' },
             { word: 'すやすや', type: '🌈 虹', emotion: '安心', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '心が完全に解き放たれ、深い安らぎの中にいます。', advice: '睡眠の質を高めるため、寝具を整えたり、良い香りを漂わせてみて。', tomorrow: '明朝はすっきりと目覚めることができるでしょう。' },
             { word: 'うるうる', type: '☔ 雨', emotion: '感動', category: '感動・共鳴・気づき', chakra: '', sound: '', analysis: '美しいものや人の優しさに、胸がいっぱいになっています。', advice: '涙を流することで心のコリがほぐれます。思い切りうるうるして。', tomorrow: '心のレンズが綺麗になり、世界が美しく見えます。' },
             { word: 'ぷんぷん', type: '⛈ 雷雨', emotion: '怒り', category: '怒り・焦り', chakra: '', sound: '', analysis: '怒りの雲がもくもくと湧き上がっています。', advice: '冷たいお水を一杯飲んで、頭を少し冷やしてみましょう。', tomorrow: '怒りの裏側にある「本当の気持ち」に気づけるかも。' },
             { word: 'ぼーっと', type: '☁ 曇り', emotion: '疲労', category: '無力感・疲労・エネルギー不足', chakra: '', sound: '', analysis: '脳 of 活動が低下し、お疲れモードです。', advice: '何も考えない時間を意図的に作りましょう。昼寝もおすすめ。', tomorrow: '脳 of エネルギーが充電され、スッキリします。' },
-            { word: 'ハラハラ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉調', chakra: '', sound: '', analysis: '先のことが心配で、心が落ち着きません。', advice: '「今ここ」に集中して、自分にできることだけをやりましょう。', tomorrow: '不安の嵐は通り過ぎていきます。' },
+            { word: 'ハラハラ', type: '🌬 風強め', emotion: '不安', category: '不安・緊張・落ち着かない・嫉妬', chakra: '', sound: '', analysis: '先のことが心配で、心が落ち着きません。', advice: '「今ここ」に集中して、自分にできることだけをやりましょう。', tomorrow: '不安の嵐は通り過ぎてしていきます。' },
             { word: 'もんもん', type: '☁ 曇り', emotion: '迷い', category: '迷い・違和感・決められない', chakra: '', sound: '', analysis: '答えが出ず、暗いトンネルに入ったような状態です。', advice: '考えるのを一度やめて、好きなことに没頭してみましょう。', tomorrow: '意外なところから閃きが生まれるかもしれません。' },
             { word: 'きらきら', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '内なる輝きが外に溢れ出ています。絶好調の運気です。', advice: 'その輝きを活かして、表現活動や人と会うことを楽しんで。', tomorrow: 'あなたの周りにたくさんの人が集まってきます。' },
             { word: 'るんるん', type: '☀ 快晴', emotion: '喜び', category: '喜び・好奇心・創造性', chakra: '', sound: '', analysis: '足取りが軽く、心が歌っているような状態です。', advice: '好きな音楽をかけて、一緒に歌ったり踊ったりしてみて。', tomorrow: 'さらに高いエネルギーを引き寄せます。' },
@@ -389,15 +391,16 @@
             return WEATHER_TYPES.CLOUDY; // デフォルトは曇り
         }
 
-        /* カテゴリの自動分類 */
+        /* ② カテゴリの自動分類 (漏れ・不足を完全に解消し、「怒り・焦り」などを正しく分類) */
         function getCategoryForWord(wordObj) {
             const cat = wordObj.category || '';
-            if (cat.includes('迷い') || cat.includes('違和感')) return 'weary';
-            if (cat.includes('不安') || cat.includes('緊張')) return 'anxious';
-            if (cat.includes('喜び') || cat.includes('好奇心')) return 'energetic';
-            if (cat.includes('感動') || cat.includes('共鳴')) return 'inspired';
-            if (cat.includes('嫉妬') || cat.includes('おののき') || cat.includes('嫉調')) return 'angry';
-            if (cat.includes('無力感') || cat.includes('疲労')) return 'sad';
+            if (cat.includes('迷い') || cat.includes('違和感') || cat.includes('決められない')) return 'weary';
+            if (cat.includes('不安') || cat.includes('緊張') || cat.includes('落ち着かない')) return 'anxious';
+            if (cat.includes('喜び') || cat.includes('好奇心') || cat.includes('創造性')) return 'energetic';
+            if (cat.includes('感動') || cat.includes('共鳴') || cat.includes('気づき')) return 'inspired';
+            // ① 怒りや焦りのカテゴリ名も含めて正しく「angry（嫉妬・イライラ）」に分類
+            if (cat.includes('嫉妬') || cat.includes('怒り') || cat.includes('焦り') || cat.includes('おののき') || cat.includes('嫉調')) return 'angry';
+            if (cat.includes('無力感') || cat.includes('疲労') || cat.includes('エネルギー不足')) return 'sad';
             return 'other';
         }
 
@@ -449,7 +452,7 @@
             });
         }
 
-        /* 重複を排除してオノマトペを表示 */
+        /* 重複を排除してことばを表示 */
         function renderOnomatopoeiaGrid() {
             onomatopoeiaGrid.innerHTML = '';
             
@@ -459,7 +462,7 @@
                 filtered = onomatopoeiaList.filter(w => getCategoryForWord(w) === state.currentCategory);
             }
 
-            // オノマトペ単語名で重複を除去
+            // ことば単語名で重複を除去
             const uniqueWordNames = [];
             filtered.forEach(item => {
                 if (!uniqueWordNames.includes(item.word)) {
@@ -468,7 +471,7 @@
             });
 
             if (uniqueWordNames.length === 0) {
-                onomatopoeiaGrid.innerHTML = '<div class="col-span-full py-8 text-center text-slate-400 text-sm">このカテゴリに登録されているオノマトペはありません</div>';
+                onomatopoeiaGrid.innerHTML = '<div class="col-span-full py-8 text-center text-slate-400 text-sm">このカテゴリに登録されていることばはありません</div>';
                 return;
             }
 
@@ -497,7 +500,7 @@
                 state.selectedWords.splice(index, 1);
             } else {
                 if (state.selectedWords.length >= 3) {
-                    showToast("オノマトペは最大3つまで選択できます。");
+                    showToast("ことば（オノマトペ）は最大3つまで選択できます。");
                     return;
                 }
                 
@@ -518,7 +521,7 @@
             
             if (state.selectedWords.length === 0) {
                 selectedTagsContainer.appendChild(placeholderText);
-                placeholderText.textContent = "オノマトペを2〜3個選択してください（残り3個）";
+                placeholderText.textContent = "ことば（オノマトペ）を選択してください（残り3個）";
                 btnForecast.disabled = true;
                 btnForecast.className = "px-8 py-4 bg-slate-300 text-slate-500 font-bold rounded-full shadow-lg cursor-not-allowed transition-all duration-300 text-lg";
                 selectionCounter.textContent = "0 / 3 個選択中 (あと3個選んでね)";
@@ -692,7 +695,7 @@
 
             document.getElementById('forecast-analysis').innerHTML = analysisHTML;
 
-            // アドバイスの反映 (選んだオノマトペから合成)
+            // アドバイスの反映 (選んだことばから合成)
             let combinedAdvice = muneData.advice || atamaData.advice || "温かいお茶を飲んで、少し深呼吸をして一息ついてみましょう。";
             document.getElementById('forecast-advice').textContent = combinedAdvice;
 
@@ -701,7 +704,7 @@
             document.getElementById('forecast-tomorrow').textContent = "「 " + combinedTomorrow + " 」";
         }
 
-        /* 天気エフェクト演出 (お天気雨などの新エフェクトを含む) */
+        /* 天気エフェクト演出 (お天気雨などの演出) */
         function setupWeatherEffects(weatherId) {
             const container = document.getElementById('weather-effect-container');
             container.innerHTML = '';
@@ -728,6 +731,7 @@
                     drop.style.top = (Math.random() * -30) + "px";
                     drop.style.transform = 'rotate(15deg)';
                     drop.style.animationDelay = (Math.random() * 1) + "s";
+                    drop.style.animationDuration = (1 + Math.random() * 0.8) + "s";
                     container.appendChild(drop);
                 }
             } else if (weatherId === 'rainbow') {
@@ -756,15 +760,10 @@
                     leaf.style.animationDuration = '2s';
                     container.appendChild(leaf);
                 }
-            }
-            
-            // 特別追加：お天気雨 (雨 ＋ 太陽の光)
-            else if (weatherId === 'sun_and_rain') {
-                // 太陽の光
+            } else if (weatherId === 'sun_and_rain') {
                 const sunLight = document.createElement('div');
                 sunLight.className = 'absolute -right-10 -top-10 w-36 h-36 bg-amber-300/30 rounded-full blur-2xl animate-pulse';
                 container.appendChild(sunLight);
-                // 雨
                 for (let i = 0; i < 12; i++) {
                     const drop = document.createElement('div');
                     drop.className = 'absolute w-0.5 h-4 bg-white/50 rounded-full rain-drop';
@@ -774,9 +773,7 @@
                     drop.style.animationDuration = (1 + Math.random() * 0.8) + "s";
                     container.appendChild(drop);
                 }
-            }
-            // 特別追加：嵐のち晴れ (静かに降る葉と、朝焼けの光)
-            else if (weatherId === 'storm_and_sun') {
+            } else if (weatherId === 'storm_and_sun') {
                 const sunLight = document.createElement('div');
                 sunLight.className = 'absolute -right-10 -top-10 w-36 h-36 bg-rose-200/30 rounded-full blur-2xl animate-pulse';
                 container.appendChild(sunLight);
@@ -802,7 +799,7 @@
 
             const phrases = [
                 "心のお天気図を観測中...",
-                "オノマトペから心の気圧を計算中...",
+                "ことば（オノマトペ）から心の気圧を計算中...",
                 "明日のココロ予報を準備中..."
             ];
             let phraseIndex = 0;
@@ -837,74 +834,80 @@
             stepSelection.classList.remove('hidden');
         });
 
-        /* 結果コピー */
-        document.getElementById('btn-share').addEventListener('click', () => {
-            if (state.selectedWords.length < 2) return;
+        /* ④ クリップボード共有処理（ボタン非表示化に伴い、コードはそのままコメントアウトで残します）
+        const btnShare = document.getElementById('btn-share');
+        if (btnShare) {
+            btnShare.addEventListener('click', () => {
+                if (state.selectedWords.length < 2) return;
 
-            const results = calculateForecast();
-            const selectedMune = state.selectedWords[1];
-            
-            let shareText = "【心のお天気予報】\nココロの空模様は「" + results.overall.name + " " + results.overall.emoji + "」でした！\n\n" +
-                "アタマ：" + state.selectedWords[0].word + "\n" +
-                "ムネ：" + selectedMune.word + "\n";
-            if (state.selectedWords[2]) {
-                shareText += "カラダ：" + state.selectedWords[2].word + "\n";
-            }
-            shareText += "\nアドバイス：" + (selectedMune.advice || "ゆっくり休みましょう。") + "\n\n" +
-                "明日の一言：" + (selectedMune.tomorrow || "穏やかな一日になるでしょう。") + "\n#心のお天気予報";
+                const results = calculateForecast();
+                const selectedMune = state.selectedWords[1];
+                
+                let shareText = "【心のお天気予報】\nココロの空模様は「" + results.overall.name + " " + results.overall.emoji + "」でした！\n\n" +
+                    "アタマ：" + state.selectedWords[0].word + "\n" +
+                    "ムネ：" + selectedMune.word + "\n";
+                if (state.selectedWords[2]) {
+                    shareText += "カラダ：" + state.selectedWords[2].word + "\n";
+                }
+                shareText += "\nアドバイス：" + (selectedMune.advice || "ゆっくり休みましょう。") + "\n\n" +
+                    "明日の一言：" + (selectedMune.tomorrow || "穏やかな一日になるでしょう。") + "\n#心のお天気予報";
 
-            const tempTextarea = document.createElement('textarea');
-            tempTextarea.value = shareText;
-            tempTextarea.style.position = 'fixed';
-            tempTextarea.style.opacity = '0';
-            document.body.appendChild(tempTextarea);
-            tempTextarea.select();
-            
-            try {
-                document.execCommand('copy');
-                showToast("📋 予報結果をクリップボードにコピーしたよ！");
-            } catch (err) {
-                showToast("コピーに失敗しました。");
-            }
-            document.body.removeChild(tempTextarea);
-        });
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = shareText;
+                tempTextarea.style.position = 'fixed';
+                tempTextarea.style.opacity = '0';
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    showToast("📋 予報結果をクリップボードにコピーしたよ！");
+                } catch (err) {
+                    showToast("コピーに失敗しました。");
+                }
+                document.body.removeChild(tempTextarea);
+            });
+        }
+        */
 
         /* 音声読み上げ */
         const btnSpeak = document.getElementById('btn-speak');
         let isSpeaking = false;
         
-        btnSpeak.addEventListener('click', () => {
-            if ('speechSynthesis' in window) {
-                if (isSpeaking) {
-                    window.speechSynthesis.cancel();
-                    isSpeaking = false;
-                    btnSpeak.innerHTML = '<i class="fa-solid fa-volume-high"></i> 音声で予報を聞く';
-                    return;
+        if (btnSpeak) {
+            btnSpeak.addEventListener('click', () => {
+                if ('speechSynthesis' in window) {
+                    if (isSpeaking) {
+                        window.speechSynthesis.cancel();
+                        isSpeaking = false;
+                        btnSpeak.innerHTML = '<i class="fa-solid fa-volume-high"></i> 音声で予報を聞く';
+                        return;
+                    }
+
+                    const results = calculateForecast();
+                    const selectedMune = state.selectedWords[1];
+                    
+                    let textToSpeak = "心のお天気予報です。今日の心のお天気は、" + results.overall.name + "。" + 
+                        results.overall.subtitle + "。アドバイスとして、" + (selectedMune.advice || "一息つきましょう") + 
+                        "。明日への一言予報です。" + (selectedMune.tomorrow || "良い日になりますように");
+
+                    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                    utterance.lang = 'ja-JP';
+                    utterance.rate = 1.0;
+                    
+                    utterance.onend = () => {
+                        isSpeaking = false;
+                        btnSpeak.innerHTML = '<i class="fa-solid fa-volume-high"></i> 音声で予報を聞く';
+                    };
+
+                    isSpeaking = true;
+                    btnSpeak.innerHTML = '<i class="fa-solid fa-circle-stop text-rose-500"></i> 再生を停止する';
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    showToast("音声再生に対応していません。");
                 }
-
-                const results = calculateForecast();
-                const selectedMune = state.selectedWords[1];
-                
-                let textToSpeak = "心のお天気予報です。今日の心のお天気は、" + results.overall.name + "。" + 
-                    results.overall.subtitle + "。アドバイスとして、" + (selectedMune.advice || "一息つきましょう") + 
-                    "。明日への一言予報です。" + (selectedMune.tomorrow || "良い日になりますように");
-
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = 'ja-JP';
-                utterance.rate = 1.0;
-                
-                utterance.onend = () => {
-                    isSpeaking = false;
-                    btnSpeak.innerHTML = '<i class="fa-solid fa-volume-high"></i> 音声で予報を聞く';
-                };
-
-                isSpeaking = true;
-                btnSpeak.innerHTML = '<i class="fa-solid fa-circle-stop text-rose-500"></i> 再生を停止する';
-                window.speechSynthesis.speak(utterance);
-            } else {
-                showToast("音声再生に対応していません。");
-            }
-        });
+            });
+        }
 
         /* トースト表示 */
         function showToast(message) {
